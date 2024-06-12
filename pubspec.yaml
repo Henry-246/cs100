@@ -1,0 +1,66 @@
+name: cs_100
+description: A project focused on helping computer science students at KNUST
+
+publish_to: "none"
+
+version: 1.0.2+2
+
+environment:
+  sdk: ">=2.18.4 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.2
+  get: ^4.6.5
+  dartz: ^0.10.1
+  google_fonts: ^6.2.0
+  flex_color_scheme: ^7.3.1
+  firebase_core: ^3.0.0
+  firebase_auth: ^5.0.0
+  cloud_firestore: ^5.0.0
+  ionicons: ^0.2.1
+  device_preview: ^1.1.0
+  get_storage: ^2.0.3
+  google_sign_in: ^6.2.1
+  share_plus: ^9.0.0
+  cached_network_image: ^3.2.2
+  dio: ^5.4.3+1
+  webview_flutter: ^4.8.0
+  # for launching url
+  url_launcher: ^6.1.6
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_launcher_icons: ^0.13.1
+  flutter_native_splash: ^2.2.15
+
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/logo.png"
+  adaptive_icon_background: "#FFFFFF"
+  adaptive_icon_foreground: "assets/logo.png"
+
+flutter_native_splash:
+  color: "#FFFFFF"
+  image: "assets/logo.png"
+  color_dark: "#1e222b"
+  android: true
+  ios: true
+  android_12:
+    adaptive_icon_background: "#FFFFFF"
+    adaptive_icon_foreground: "assets/logo.png"
+    color: "#FFFFFF"
+    color_dark: "#1e222b"
+    image: "assets/logo.png"
