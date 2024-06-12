@@ -1,5 +1,6 @@
 import 'package:cs_100/app/routes/pages.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -12,6 +13,8 @@ class AuthController extends GetxController {
   var isSignIn = false.obs;
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn googleSignIn = GoogleSignIn();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
 
   Future<void> signInWithGoogle() async {
     try {
@@ -39,7 +42,7 @@ class AuthController extends GetxController {
     } on PlatformException {
       Get.snackbar(
         'Error',
-        'An error occurred while signing in',
+        'PlatformException',
         backgroundColor: Get.theme.colorScheme.errorContainer,
         snackPosition: SnackPosition.BOTTOM,
         colorText: Get.theme.colorScheme.error,
@@ -61,6 +64,30 @@ class AuthController extends GetxController {
         snackPosition: SnackPosition.BOTTOM,
         colorText: Get.theme.colorScheme.error,
       );
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
+  Future<void> signInWithEmailAndPassword() async {
+    isLoading.value = true;
+    try {
+      final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: emailController.text.trim(),
+        password: passwordController.text.trim(),
+      );
+      userStore.write('id', credential.user?.uid);
+      userDetailsBox = GetStorage(credential.user!.uid);
+      final details = userDetailsBox.read('userDetails');
+      if (details == null) {
+        Get.offAllNamed(AppRoutes.userDetails);
+      } else {
+        Get.offAllNamed(
+          AppRoutes.home,
+        );
+      }
+    } catch (e) {
+      Get.snackbar("Error", e.toString());
     } finally {
       isLoading.value = false;
     }
